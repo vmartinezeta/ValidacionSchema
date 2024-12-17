@@ -1,3 +1,4 @@
+// Autor:Víctor Martínez
 import Zod from "./Zod.js"
 
 

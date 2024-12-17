@@ -1,3 +1,4 @@
+// Autor:Víctor Martínez
 export default function StringType() {
     this._min = undefined
     this._max = undefined

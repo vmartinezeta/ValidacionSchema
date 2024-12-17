@@ -1,3 +1,4 @@
+// Autor:Víctor Martínez
 import StringType from "./StringType.js"
 
 export default function Zod() {
