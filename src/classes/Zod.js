@@ -1,31 +1,41 @@
 /* Autor:Víctor Martínez */
 const DecimalType = require("./DecimalType")
+const IntegerType = require("./IntegerType")
+const ParserObject = require("./ParserObject")
 const StringType = require("./StringType")
 
-class Zod {
+class Zod  extends ParserObject{
     constructor() {
-        this.types = []
+        super()
     }
 
     decimal() {
+        Object.assign(this, this.newInstance())
         const decimalType = new DecimalType()
         this.types.push(decimalType)
         return decimalType
     }
 
     string() {
+        Object.assign(this, this.newInstance())
         const stringType = new StringType()
         this.types.push(stringType)
         return stringType
     }
 
-    parse(input) {
-        for (const type of this.types) {
-            if (!type.isValid(input)) {
-                throw new TypeError("No es valido")
-            }
-        }
-        return input
+    int() {
+        Object.assign(this, this.newInstance())
+        const intType = new IntegerType()
+        this.types.push(intType)
+        return intType
+    }
+
+    object(object) {
+        return new ParserObject(object)
+    }  
+
+    newInstance() {
+        return new Zod()
     }
 }
 

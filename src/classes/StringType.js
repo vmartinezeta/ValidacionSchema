@@ -9,10 +9,11 @@ class StringType {
 
     optional() {
         this.empty = true
-    }    
+        return this
+    }
 
     hasOptional() {
-        return this.empty !== undefined
+        return this.empty !== undefined && this.empty
     }
 
     nonEmpty() {
@@ -35,6 +36,7 @@ class StringType {
 
     max (max) {
         this._max = max
+        return this
     }
 
     hasMax () {
@@ -42,7 +44,9 @@ class StringType {
     }
 
     email() {
+        this.empty = false
         this._email = /^(\w+@\w+\.\w+)$/
+        return this
     }
 
     hasEmail () {
@@ -50,15 +54,15 @@ class StringType {
     }
 
     isValid(input) {
-        if (!this.hasOptional() || !this.hasNonEmpty() || input === undefined) {
+        if ((this.hasOptional()|| this.hasNonEmpty) && input === undefined) {
             return false
         } else if (this.hasNonEmpty() && input.length===0 ) {
             return false
-        } else if (this.hasEmail() && !this._email.test(input)) {
+        } else if (this.hasNonEmpty() && this.hasEmail() && !this._email.test(input)) {
             return false
-        } else if (this.hasMin() && input.length < this._min) {
+        } else if (this.hasNonEmpty() &&this.hasMin() && input.length < this._min) {
             return false
-        } else if (this.hasMax() && input.length > this._max) {
+        } else if (this.hasNonEmpty() &&this.hasMax() && input.length > this._max) {
             return false
         }
         return true

@@ -7,6 +7,7 @@ class DecimalType {
 
     max(cantidad) {
         this.cantidad = cantidad
+        return this
     }
 
     hasDecimal() {
@@ -17,7 +18,12 @@ class DecimalType {
         return this.cantidad !== undefined
     }
 
+    isOnlyLetter(input) {
+        return /[a-zA-z]+/g.test(input)
+    }
+
     isValid(numero) {
+        if(this.isOnlyLetter(numero)) return false
         if (!this.hasShortDecimal()) {
             return this.largeDecimal.test(numero)
         }

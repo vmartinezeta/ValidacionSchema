@@ -1,6 +1,11 @@
 /* Autor:Víctor Martínez */
 const Zod = require("./classes/Zod")
 
-const schema = new Zod()
-schema.decimal().max(2)
-console.log(schema.parse("10.20"))
+const z = new Zod()
+const User = z.object({
+    username: z.string().email(),
+    password: z.string().nonEmpty()
+})
+
+const user = User.parse({username:"vito@gmail.com", password:"123"})
+console.log(user)
